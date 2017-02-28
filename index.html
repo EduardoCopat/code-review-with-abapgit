@@ -1,0 +1,306 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>abapGit + Github</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+	<link rel="stylesheet" type="text/css" href="gitgraph.js-1.8.3/build/gitgraph.css" />
+	<link rel="stylesheet" href="font-awesome-4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="octicons/octicons.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+
+			<section data-background-image="img/codereview3.jpg">
+				<div style="background: rgba(255, 255, 255, .8); border-radius: 4px; font-color:black">
+					<font color="black">Using <strong>abapGit</strong> and <strong>Github</strong> as an ABAP code review tool</font>
+				</div>
+				<!-- <img src="img/abapGitLogo.svg" style="border:none;width: 25%; height: 25%"> -->
+			</section>
+			<section>
+				<h3>Motivation</h3>
+				<ul>
+					<li>No code review tool</li>
+					<li>Github development <a href="https://guides.github.com/introduction/flow/">flow</a> is easy to understand</li>
+					<ul>
+						<li>Pull request flow allows code reviews</li>
+						<li>Possible to track code review changes</li>
+					</ul>
+						<li>Leverage abapGit offline functionalities</li>
+				</ul>
+			</section>
+			<section>
+			<table>
+			<tr><td colspan="2"><b><center><font color="orange">abapGit</font></center></b></td></tr>
+			<tr><td><i class="mega-octicon more-mega octicon-calendar"></i></td><td>started ~3 years ago</td></tr>
+			<tr><td><i class="mega-octicon more-mega octicon-git-commit"></i></td><td>~1000 commits</td></tr>
+			<tr><td><i class="mega-octicon more-mega octicon-organization"></i></td><td>12 contributors</td></tr>
+			<tr><td><i class="mega-octicon more-mega octicon-code"></i></td><td>~40000 lines</td></tr>
+			<tr><td><i class="mega-octicon more-mega octicon-versions"></i></td><td>7.02 and up</td></tr>
+			</table>
+			</section>
+			<section>
+				Proposed Workflow
+			</section>
+			<section>
+				Step 1 - Create a github abapGit project
+				<img src="img/step1.png">
+			</section>
+			<section>
+				<canvas id="gitGraph-step1"></canvas>
+			</section>
+			<section>
+				Step 2 - Developer receives a new User Story, creates a Transport request and work over it
+				<img src="img/step2.png">
+			</section>
+			<section>
+				<canvas id="gitGraph-step2"></canvas>
+			</section>
+			<section>
+				Step 3 - When development is done, release the task
+				<img src="img/step3.png">
+			</section>
+			<section>
+				<canvas id="gitGraph-step3"></canvas>
+			</section>
+			<section>
+				Step 4 - zip the request using abapGit
+				<img src="img/step4.png">
+			</section>
+			<section>
+				<canvas id="gitGraph-step4"></canvas>
+			</section>
+			<section>
+				Step 5 - Create a branch, commit contents from zip
+				<pre><code class="ps" data-trim contenteditable>
+						$ git clone https://github.com/EduardoCopat/abap-full-sandbox.git
+						$ git checkout -b "user-story-37-foo"
+						Unzip abapGit files into folder
+						$ git add *
+						$ git commit -m "Task SD4K900424"
+						$ git push origin user-story-37-foo
+					 </code></pre>
+			</section>
+			<section>
+				<canvas id="gitGraph-step5"></canvas>
+			</section>
+			<section>
+				Step 6 - Open a pull request, sets reviewer , code is reviewed
+				<img src="img/step6.png">
+			</section>
+			<section>
+				<img src="img/step6b.png">
+			</section>
+			<section>
+				<canvas id="gitGraph-step6"></canvas>
+			</section>
+			<section>
+				Step 7 - Developer adjusts the code and push to branch again. Reviewer checks again. Code review is complete.
+				<img src="img/step7.png">
+			</section>
+			<section>
+				<canvas id="gitGraph-step7"></canvas>
+			</section>
+			<section>
+				<h4>Alternative workflows/improvements</h4>
+				<ul>
+					<li> Current proposed workflow requires lots of manual work, could be automated using abap BAPIs and abapGit APIs </li>
+					<li> Instead of using an offline repository, one could directly conect to github also with abapGit </li>
+					<li> setup a CI server to run unit tests and code inspector based on the task </li>
+			</section>
+			<section>
+				<h4>Thanks</h4>
+				Eduardo Ferrari Copat
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			history: true,
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'plugin/markdown/marked.js'
+				},
+				{
+					src: 'plugin/markdown/markdown.js'
+				},
+				{
+					src: 'plugin/notes/notes.js',
+					async: true
+				},
+				{
+					src: 'plugin/highlight/highlight.js',
+					async: true,
+					callback: function() {
+						hljs.initHighlightingOnLoad();
+					}
+				}
+			]
+		});
+	</script>
+
+	<script src="gitgraph.js-1.8.3/build/gitgraph.js"></script>
+	<script>
+		function createGitgraph(elementId) {
+			return new GitGraph({
+				template: "metro",
+				reverseArrow: false,
+				orientation: "vertical",
+				author: "",
+				elementId: elementId
+			});
+		}
+
+		function appendImportExisting(aGitgraph) {
+			var master = aGitgraph.branch("github");
+			aGitgraph.commit({
+				message: "Create offline github project",
+				messageAuthorDisplay: false,
+				messageBranchDisplay: false,
+				messageHashDisplay: false,
+				tag: "Github"
+			});
+			return master;
+		}
+
+		function appendRequestCreation(aGitgraph) {
+			var abap = aGitgraph.branch("abap"); // New branch from HEAD
+			abap.commit({
+				message: "Create request and work on it",
+				messageAuthorDisplay: false,
+				messageBranchDisplay: false,
+				messageHashDisplay: false,
+				tag: "abap"
+			});
+			return abap;
+		}
+
+		function appendTaskRelease(aGitgraph) {
+			aGitgraph.commit({
+				message: "Release task",
+				messageAuthorDisplay: false,
+				messageBranchDisplay: false,
+				messageHashDisplay: false,
+			});
+		}
+
+
+
+		function appendZip(aGitgraph) {
+			var abapGit = aGitgraph.branch("abapGit");
+			abapGit.commit({
+				message: "Zip using abapGit transport feature",
+				messageAuthorDisplay: false,
+				messageBranchDisplay: false,
+				messageHashDisplay: false,
+				tag: "abapGit"
+			});
+			return abapGit;
+		}
+
+		function appendBranchZip(abapGit, github) {
+			abapGit.merge(github, {
+				message: "Create a branch, commit contents from zip",
+				messageAuthorDisplay: false,
+				messageBranchDisplay: false,
+				messageHashDisplay: false,
+			});
+		}
+
+		function appendPullRequest(aGitgraph) {
+			aGitgraph.commit({
+				message: "Pull request and review",
+				messageAuthorDisplay: false,
+				messageBranchDisplay: false,
+				messageHashDisplay: false,
+			});
+		}
+
+		function appendFinalReview(aGitgraph) {
+			aGitgraph.commit({
+				message: "New task, Code review adjustment",
+				messageAuthorDisplay: false,
+				messageBranchDisplay: false,
+				messageHashDisplay: false,
+			});
+		}
+
+
+		var gitgraphStep1 = createGitgraph("gitGraph-step1");
+		appendImportExisting(gitgraphStep1);
+
+		var gitgraphStep2 = createGitgraph("gitGraph-step2");
+		appendImportExisting(gitgraphStep2);
+		appendRequestCreation(gitgraphStep2);
+
+		var gitgraphStep3 = createGitgraph("gitGraph-step3");
+		appendImportExisting(gitgraphStep3);
+		var abap = appendRequestCreation(gitgraphStep3);
+		appendTaskRelease(abap);
+
+		var gitgraphStep4 = createGitgraph("gitGraph-step4");
+		appendImportExisting(gitgraphStep4);
+		var abap = appendRequestCreation(gitgraphStep4);
+		appendTaskRelease(abap);
+		appendZip(abap);
+
+		var gitgraphStep5 = createGitgraph("gitGraph-step5");
+		var github = appendImportExisting(gitgraphStep5);
+		var abap = appendRequestCreation(gitgraphStep5);
+		appendTaskRelease(abap);
+		var abapGit = appendZip(abap);
+		appendBranchZip(abapGit, github);
+
+		var gitgraphStep6 = createGitgraph("gitGraph-step6");
+		var github = appendImportExisting(gitgraphStep6);
+		var abap = appendRequestCreation(gitgraphStep6);
+		appendTaskRelease(abap);
+		var abapGit = appendZip(abap);
+		appendBranchZip(abapGit, github);
+		appendPullRequest(github);
+		appendFinalReview(abap);
+
+		var gitgraphStep7 = createGitgraph("gitGraph-step7");
+		var github = appendImportExisting(gitgraphStep7);
+		var abap = appendRequestCreation(gitgraphStep7);
+		appendTaskRelease(abap);
+		var abapGit = appendZip(abap);
+		appendBranchZip(abapGit, github);
+		appendPullRequest(github);
+		appendFinalReview(abap);
+		abap.merge(github, {
+			message: "Code review is done. Request is released",
+			messageAuthorDisplay: false,
+			messageBranchDisplay: false,
+			messageHashDisplay: false,
+		});
+	</script>
+
+
+</body>
+
+</html>
