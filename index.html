@@ -59,7 +59,7 @@
 			</table>
 			</section>
 			<section>
-				Proposed Workflow
+				Proposed "offline + github" Workflow
 			</section>
 			<section>
 				Step 1 - Create a github abapGit project
@@ -110,12 +110,13 @@
 			<section>
 				<img src="img/step6b.png">
 			</section>
-			<section>
-				<canvas id="gitGraph-step6"></canvas>
-			</section>
+
 			<section>
 				Step 7 - Developer adjusts the code and push to branch again. Reviewer checks again. Code review is complete.
 				<img src="img/step7.png">
+			</section>
+			<section>
+				<canvas id="gitGraph-step6"></canvas>
 			</section>
 			<section>
 				<canvas id="gitGraph-step7"></canvas>
@@ -178,7 +179,7 @@
 		function appendImportExisting(aGitgraph) {
 			var master = aGitgraph.branch("github");
 			aGitgraph.commit({
-				message: "Create offline github project",
+				message: "Create abapGit github project",
 				messageAuthorDisplay: false,
 				messageBranchDisplay: false,
 				messageHashDisplay: false,
