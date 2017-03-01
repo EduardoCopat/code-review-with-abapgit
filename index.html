@@ -121,6 +121,10 @@
 			<section>
 				<canvas id="gitGraph-step7"></canvas>
 			</section>
+
+			<section>
+				<canvas id="gitGraph-step8"></canvas>
+			</section>
 			<section>
 				<h4>Alternative workflows/improvements</h4>
 				<ul>
@@ -284,11 +288,19 @@
 		var abapGit = appendZip(abap);
 		appendBranchZip(abapGit, github);
 		appendPullRequest(github);
-		appendFinalReview(abap);
 
 		var gitgraphStep7 = createGitgraph("gitGraph-step7");
 		var github = appendImportExisting(gitgraphStep7);
 		var abap = appendRequestCreation(gitgraphStep7);
+		appendTaskRelease(abap);
+		var abapGit = appendZip(abap);
+		appendBranchZip(abapGit, github);
+		appendPullRequest(github);
+		appendFinalReview(abap);
+
+		var gitgraphStep8 = createGitgraph("gitGraph-step8");
+		var github = appendImportExisting(gitgraphStep8);
+		var abap = appendRequestCreation(gitgraphStep8);
 		appendTaskRelease(abap);
 		var abapGit = appendZip(abap);
 		appendBranchZip(abapGit, github);
