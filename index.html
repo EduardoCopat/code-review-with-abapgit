@@ -110,14 +110,14 @@
 			<section>
 				<img src="img/step6b.png">
 			</section>
-
+			<section>
+				<canvas id="gitGraph-step6"></canvas>
+			</section>
 			<section>
 				Step 7 - Developer adjusts the code and push to branch again. Reviewer checks again. Code review is complete.
 				<img src="img/step7.png">
 			</section>
-			<section>
-				<canvas id="gitGraph-step6"></canvas>
-			</section>
+
 			<section>
 				<canvas id="gitGraph-step7"></canvas>
 			</section>
@@ -127,6 +127,7 @@
 					<li> Current proposed workflow requires lots of manual work, could be automated using abap BAPIs and abapGit APIs </li>
 					<li> Instead of using an offline repository, one could directly conect to github also with abapGit </li>
 					<li> setup a CI server to run unit tests and code inspector based on the task </li>
+					<li> abapGit works on R3TR level not LIMU. I.e. 2 methods in a class can be in 2 different transports, however in abapGit it is the same object. </li>
 			</section>
 			<section>
 				<h4>Thanks</h4>
